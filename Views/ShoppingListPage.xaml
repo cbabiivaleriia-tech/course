@@ -1,0 +1,358 @@
+<Page x:Class="WeeklyShoppingListWPF.Views.ShoppingListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{DynamicResource BackgroundBrush}"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="32,24,32,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. ЗАГОЛОВОК СТОРІНКИ ТА ДІЇ -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Список покупок"
+                           Style="{DynamicResource PageTitleStyle}"/>
+                <TextBlock Text="Керуйте покупками та контролюйте бюджет"
+                           Style="{DynamicResource PageSubtitleStyle}"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+
+                <!-- Кнопка швидкого перенесення куплених товарів до архіву -->
+                <Button x:Name="ArchivePurchasedButton"
+                        Content="📦  В архів (0)"
+                        ToolTip="Перенести всі відмічені куплені товари до архіву"
+                        Style="{DynamicResource SecondaryButtonStyle}"
+                        Height="40"
+                        Margin="0,0,10,0"
+                        IsEnabled="False"
+                        Click="ArchivePurchased_Click"/>
+
+                <Button Content="🗑  Очистити"
+                        ToolTip="Очистити весь поточний список"
+                        Style="{DynamicResource DangerButtonStyle}"
+                        Height="40"
+                        Margin="0,0,10,0"
+                        Click="ClearList_Click"/>
+
+                <Button Content="+  Додати покупку"
+                        Style="{DynamicResource PrimaryButtonStyle}"
+                        Height="40"
+                        Click="AddPurchase_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- 2. ПАНЕЛЬ БЮДЖЕТУ ТА ПІДСУМКІВ -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource CardBrush}"
+                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="20,18"
+                Margin="0,20,0,20">
+            <StackPanel>
+                <!-- 4 картки метрик -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Бюджет -->
+                    <Border Grid.Column="0"
+                            Background="{DynamicResource BackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="16,12">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="БЮДЖЕТ"
+                                           FontSize="11"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                <Button Content="✏️ Змінити"
+                                        HorizontalAlignment="Right"
+                                        FontSize="11"
+                                        FontWeight="Medium"
+                                        Foreground="{DynamicResource PrimaryBrush}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Click="EditBudget_Click"/>
+                            </Grid>
+                            <TextBlock x:Name="BudgetTextBlock"
+                                       Text="Не встановлено"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="Натисніть для редагування"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,3,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Загальна вартість покупок -->
+                    <Border Grid.Column="2"
+                            Background="{DynamicResource BackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="16,12">
+                        <StackPanel>
+                            <TextBlock Text="ЗАГАЛЬНА СУМА"
+                                       FontSize="11"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock x:Name="TotalPriceTextBlock"
+                                       Text="0.00 грн"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource PrimaryBrush}"/>
+                            <TextBlock x:Name="ItemsCountSubTextBlock"
+                                       Text="Всього позицій: 0"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,3,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Залишок бюджету -->
+                    <Border Grid.Column="4"
+                            Background="{DynamicResource BackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="16,12">
+                        <StackPanel>
+                            <TextBlock Text="ЗАЛИШОК БЮДЖЕТУ"
+                                       FontSize="11"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock x:Name="BudgetRemainingTextBlock"
+                                       Text="—"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource SuccessBrush}"/>
+                            <TextBlock x:Name="BudgetRemainingStatusTextBlock"
+                                       Text="Без ліміту"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,3,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Куплено -->
+                    <Border Grid.Column="6"
+                            Background="{DynamicResource BackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="16,12">
+                        <StackPanel>
+                            <TextBlock Text="ПРОГРЕС КУПІВЛІ"
+                                       FontSize="11"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock x:Name="PurchasedCountTextBlock"
+                                       Text="0 з 0"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource SuccessBrush}"/>
+                            <TextBlock x:Name="ReadyToArchiveTextBlock"
+                                       Text="Куплено: 0%"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       Margin="0,3,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Смуга візуального контролю бюджету -->
+                <Grid Margin="0,14,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ProgressBar x:Name="BudgetProgressBar"
+                                 Grid.Row="0"
+                                 Height="7"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="0"
+                                 Margin="0,0,0,6"/>
+
+                    <TextBlock x:Name="BudgetHintTextBlock"
+                               Grid.Row="1"
+                               Text="Встановіть ліміт бюджету, щоб відстежувати залишок витрат."
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- 3. ОБЛАСТЬ СПИСКУ АБО ПОРОЖНЬОГО СТАНУ -->
+        <Grid Grid.Row="2">
+            <!-- Порожній стан -->
+            <Border x:Name="EmptyStateBorder"
+                    Background="{DynamicResource CardBrush}"
+                    BorderBrush="{DynamicResource CardBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="16"
+                    Padding="40"
+                    Visibility="Visible">
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="🛒"
+                               FontSize="56"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Ваш список покупок порожній"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextBrush}"
+                               HorizontalAlignment="Center"
+                               Margin="0,14,0,6"/>
+                    <TextBlock Text="Додавайте товари, вказуйте очікувані ціни та слідкуйте за бюджетом."
+                               FontSize="14"
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               HorizontalAlignment="Center"/>
+                    <Button Content="+  Додати першу покупку"
+                            Width="220"
+                            Height="44"
+                            FontSize="14"
+                            HorizontalAlignment="Center"
+                            Margin="0,20,0,0"
+                            Style="{DynamicResource PrimaryButtonStyle}"
+                            Click="AddPurchase_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Список товарів -->
+            <ScrollViewer x:Name="ItemsScrollViewer"
+                          Visibility="Collapsed"
+                          VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="ShoppingItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource CardBrush}"
+                                    BorderBrush="{DynamicResource CardBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    Margin="0,0,0,8"
+                                    Padding="14,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Чекбокс "Куплено" -->
+                                    <CheckBox Grid.Column="0"
+                                              IsChecked="{Binding IsPurchased, Mode=TwoWay}"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,14,0"
+                                              Click="ItemPurchased_Click"/>
+
+                                    <!-- Назва та категорія -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextBrush}"/>
+                                        <Border Background="{DynamicResource BadgeBackgroundBrush}"
+                                                CornerRadius="4"
+                                                Padding="8,2"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,4,0,0">
+                                            <TextBlock Text="{Binding Category}"
+                                                       FontSize="11"
+                                                       FontWeight="Medium"
+                                                       Foreground="{DynamicResource BadgeForegroundBrush}"/>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Кількість і ціна за одиницю -->
+                                    <StackPanel Grid.Column="2"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                Margin="16,0,20,0">
+                                        <TextBlock Text="{Binding QuantityWithUnit}"
+                                                   FontSize="14"
+                                                   FontWeight="Medium"
+                                                   Foreground="{DynamicResource TextBrush}"
+                                                   HorizontalAlignment="Right"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='{}{0:F2} грн/од'}"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                                   HorizontalAlignment="Right"/>
+                                    </StackPanel>
+
+                                    <!-- Загальна ціна позиції -->
+                                    <TextBlock Grid.Column="3"
+                                               Text="{Binding TotalPrice, StringFormat='{}{0:F2} грн'}"
+                                               FontSize="16"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource PrimaryBrush}"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,16,0"/>
+
+                                    <!-- Дії: В архів та Видалити -->
+                                    <StackPanel Grid.Column="4"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <!-- Кнопка швидкого перенесення одного купленого товару в архів -->
+                                        <Button Content="📦"
+                                                ToolTip="Перенести цю покупку в архів"
+                                                Style="{DynamicResource SecondaryButtonStyle}"
+                                                Width="32"
+                                                Height="32"
+                                                Padding="0"
+                                                Margin="0,0,6,0"
+                                                Click="ArchiveSingleItem_Click"
+                                                Tag="{Binding}"/>
+
+                                        <!-- Кнопка видалення -->
+                                        <Button Content="✕"
+                                                ToolTip="Видалити покупку зі списку"
+                                                Style="{DynamicResource DangerButtonStyle}"
+                                                Width="32"
+                                                Height="32"
+                                                Padding="0"
+                                                Click="DeleteItem_Click"
+                                                Tag="{Binding}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+</Page>

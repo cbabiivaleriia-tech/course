@@ -1,0 +1,205 @@
+<Window x:Class="WeeklyShoppingListWPF.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Авторизація • Shopping List"
+        Width="460"
+        Height="620"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{DynamicResource BackgroundBrush}">
+
+    <Border Padding="32">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 1. ЛОГОТИП ТА ВІТАЛЬНИЙ ЗАГОЛОВОК -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,10,0,24">
+                <Border Background="{DynamicResource BadgeBackgroundBrush}"
+                        CornerRadius="24"
+                        Width="56"
+                        Height="56"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,12">
+                    <TextBlock Text="🛒"
+                               FontSize="26"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="SHOPPING "
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextBrush}"/>
+                    <TextBlock Text="LIST"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource PrimaryBrush}"/>
+                </StackPanel>
+
+                <TextBlock Text="Особистий менеджер покупок та бюджету"
+                           FontSize="13"
+                           Foreground="{DynamicResource SecondaryTextBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- 2. СЕГМЕНТОВАНИЙ ПЕРЕМИКАЧ (ВХІД / РЕЄСТРАЦІЯ) -->
+            <Border Grid.Row="1"
+                    Background="{DynamicResource CardBrush}"
+                    BorderBrush="{DynamicResource CardBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="4"
+                    Margin="0,0,0,24">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="TabLoginButton"
+                            Grid.Column="0"
+                            Content="Вхід"
+                            Height="38"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Style="{DynamicResource PrimaryButtonStyle}"
+                            Click="TabLogin_Click"/>
+
+                    <Button x:Name="TabRegisterButton"
+                            Grid.Column="1"
+                            Content="Реєстрація"
+                            Height="38"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Background="Transparent"
+                            Foreground="{DynamicResource SecondaryTextBrush}"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="TabRegister_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- 3. ОБЛАСТЬ ФОРМ (ВХІД АБО РЕЄСТРАЦІЯ) -->
+            <Grid Grid.Row="2">
+                <!-- ФОРМА ВХОДУ -->
+                <StackPanel x:Name="LoginFormPanel" Visibility="Visible">
+                    <TextBlock Text="Логін користувача"
+                               FontSize="13"
+                               FontWeight="Medium"
+                               Foreground="{DynamicResource TextBrush}"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="LoginUsernameBox"
+                             Height="42"
+                             Margin="0,0,0,16"
+                             KeyDown="LoginForm_KeyDown"/>
+
+                    <TextBlock Text="Пароль"
+                               FontSize="13"
+                               FontWeight="Medium"
+                               Foreground="{DynamicResource TextBrush}"
+                               Margin="0,0,0,6"/>
+                    <PasswordBox x:Name="LoginPasswordBox"
+                                 Height="42"
+                                 Margin="0,0,0,16"
+                                 KeyDown="LoginForm_KeyDown"/>
+
+                    <!-- Повідомлення про помилку / успіх -->
+                    <Border x:Name="LoginMessageBorder"
+                            Background="#2B1D24"
+                            BorderBrush="{DynamicResource DangerBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="12,8"
+                            Margin="0,0,0,16"
+                            Visibility="Collapsed">
+                        <TextBlock x:Name="LoginMessageText"
+                                   Foreground="{DynamicResource DangerBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"/>
+                    </Border>
+
+                    <Button Content="Увійти до акаунта"
+                            Style="{DynamicResource PrimaryButtonStyle}"
+                            Height="44"
+                            FontSize="15"
+                            Margin="0,6,0,0"
+                            Click="LoginSubmit_Click"/>
+                </StackPanel>
+
+                <!-- ФОРМА РЕЄСТРАЦІЇ -->
+                <ScrollViewer x:Name="RegisterFormPanel"
+                              Visibility="Collapsed"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Логін (від 3 символів) *"
+                                   FontSize="13"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextBrush}"
+                                   Margin="0,0,0,6"/>
+                        <TextBox x:Name="RegUsernameBox"
+                                 Height="40"
+                                 Margin="0,0,0,14"
+                                 KeyDown="RegisterForm_KeyDown"/>
+
+                        <TextBlock Text="Ваше ім'я або нікнейм"
+                                   FontSize="13"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextBrush}"
+                                   Margin="0,0,0,6"/>
+                        <TextBox x:Name="RegFullNameBox"
+                                 Height="40"
+                                 Margin="0,0,0,14"
+                                 KeyDown="RegisterForm_KeyDown"/>
+
+                        <TextBlock Text="Пароль (від 4 символів) *"
+                                   FontSize="13"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextBrush}"
+                                   Margin="0,0,0,6"/>
+                        <PasswordBox x:Name="RegPasswordBox"
+                                     Height="40"
+                                     Margin="0,0,0,14"
+                                     KeyDown="RegisterForm_KeyDown"/>
+
+                        <TextBlock Text="Підтвердження пароля *"
+                                   FontSize="13"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextBrush}"
+                                   Margin="0,0,0,6"/>
+                        <PasswordBox x:Name="RegConfirmPasswordBox"
+                                     Height="40"
+                                     Margin="0,0,0,16"
+                                     KeyDown="RegisterForm_KeyDown"/>
+
+                        <!-- Повідомлення про помилку / успіх -->
+                        <Border x:Name="RegMessageBorder"
+                                Background="#2B1D24"
+                                BorderBrush="{DynamicResource DangerBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12,8"
+                                Margin="0,0,0,14"
+                                Visibility="Collapsed">
+                            <TextBlock x:Name="RegMessageText"
+                                       Foreground="{DynamicResource DangerBrush}"
+                                       FontSize="13"
+                                       TextWrapping="Wrap"/>
+                        </Border>
+
+                        <Button Content="Зареєструватися"
+                                Style="{DynamicResource PrimaryButtonStyle}"
+                                Height="44"
+                                FontSize="15"
+                                Click="RegisterSubmit_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

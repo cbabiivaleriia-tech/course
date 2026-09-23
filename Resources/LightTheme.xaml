@@ -1,0 +1,442 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================== -->
+    <!-- КОЛЬОРИ СВІТЛОЇ ТЕМИ (М'ЯКА ПРИЄМНА ПАЛІТРА)  -->
+    <!-- ============================================== -->
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#F4F6F9"/>
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="CardBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#CBD5E1"/>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#4F46E5"/>
+    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#4338CA"/>
+    <SolidColorBrush x:Key="SuccessBrush" Color="#059669"/>
+    <SolidColorBrush x:Key="SuccessHoverBrush" Color="#047857"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="#D97706"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="#DC2626"/>
+    <SolidColorBrush x:Key="DangerHoverBrush" Color="#B91C1C"/>
+
+    <SolidColorBrush x:Key="TextBrush" Color="#0F172A"/>
+    <SolidColorBrush x:Key="SecondaryTextBrush" Color="#64748B"/>
+    <SolidColorBrush x:Key="MutedTextBrush" Color="#94A3B8"/>
+
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="InputForegroundBrush" Color="#0F172A"/>
+    <SolidColorBrush x:Key="ItemHoverBrush" Color="#F8FAFC"/>
+
+    <SolidColorBrush x:Key="BadgeBackgroundBrush" Color="#EEF2FF"/>
+    <SolidColorBrush x:Key="BadgeForegroundBrush" Color="#4F46E5"/>
+
+    <!-- ============================================== -->
+    <!-- ОСНОВНА КНОПКА (PRIMARY) -->
+    <!-- ============================================== -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="16,9"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- КНОПКА УСПІХУ (SUCCESS) -->
+    <Style x:Key="SuccessButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="16,9"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SuccessHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- КНОПКА ВИДАЛЕННЯ / НЕБЕЗПЕКИ (DANGER) -->
+    <Style x:Key="DangerButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#FEF2F2"/>
+        <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FECACA"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Padding" Value="14,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DangerBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource DangerBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ДРУГОРЯДНА КНОПКА (SECONDARY) -->
+    <Style x:Key="SecondaryButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#F1F5F9"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Padding" Value="14,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#E2E8F0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- КНОПКА НАВІГАЦІЇ -->
+    <Style x:Key="NavigationButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="14,11"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#F1F5F9"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ЗАГОЛОВОК -->
+    <Style x:Key="PageTitleStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    </Style>
+
+    <!-- ПІДЗАГОЛОВОК -->
+    <Style x:Key="PageSubtitleStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+    </Style>
+
+    <!-- СТИЛЬ ДЛЯ TEXTBOX -->
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="border" Property="BorderThickness" Value="1.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- СТИЛЬ ДЛЯ PASSWORDBOX -->
+    <Style TargetType="{x:Type PasswordBox}">
+        <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="border" Property="BorderThickness" Value="1.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- СТИЛЬ ДЛЯ PROGRESSBAR -->
+    <Style TargetType="{x:Type ProgressBar}">
+        <Setter Property="Background" Value="#E2E8F0"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Border x:Name="BackgroundBorder"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="True">
+                        <Grid x:Name="PART_Track" HorizontalAlignment="Left">
+                            <Border x:Name="PART_Indicator"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="4"
+                                    HorizontalAlignment="Left"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- СТИЛЬ ДЛЯ RADIOBUTTON -->
+    <Style TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- СТИЛЬ ДЛЯ CHECKBOX -->
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- СТИЛІ ДЛЯ COMBOBOX ТА COMBOBOXITEM -->
+    <!-- ============================================== -->
+
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="ItemBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ItemHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="LightComboBoxToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="8"
+                SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
+                <Path x:Name="arrow"
+                      Grid.Column="1"
+                      Data="M 0 0 L 4 4 L 8 0 Z"
+                      Fill="{StaticResource SecondaryTextBrush}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="templateRoot" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                <Setter TargetName="arrow" Property="Fill" Value="{StaticResource TextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="templateRoot" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                        <ToggleButton x:Name="toggleButton"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      ClickMode="Press"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Template="{StaticResource LightComboBoxToggleButtonTemplate}"/>
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                          HorizontalAlignment="Left"
+                                          IsHitTestVisible="False"
+                                          Margin="{TemplateBinding Padding}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Popup x:Name="PART_Popup"
+                               AllowsTransparency="True"
+                               IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                               Placement="Bottom"
+                               PopupAnimation="Slide">
+                            <Border x:Name="dropDownBorder"
+                                    Background="{StaticResource SurfaceBrush}"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Margin="0,4,0,0"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
+                                <ScrollViewer x:Name="DropDownScrollViewer">
+                                    <ItemsPresenter x:Name="ItemsPresenter"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="templateRoot" Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
